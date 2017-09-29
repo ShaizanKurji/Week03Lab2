@@ -45,6 +45,16 @@ public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String errorMsg = "";
+        String firstInput = request.getParameter("first");
+        String secondInput = request.getParameter("second");
+
+        if (firstInput.equals("") || secondInput.equals("")) {
+            errorMsg = "Please fill in all boxes";
+            request.setAttribute("errorMsg", errorMsg);
+            getServletContext().getRequestDispatcher("/WEB-INF/calculator.jsp").forward(request, response);
+            return;
+        }
 
         try {
             int result = 0;
@@ -73,8 +83,8 @@ public class CalculatorServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/calculator.jsp").forward(request, response);
 
         } catch (NumberFormatException nfe) {
-            String error = "Please input all values";
-            request.setAttribute("error", error);
+            errorMsg = "Please input only numbers";
+            request.setAttribute("errorMsg", errorMsg);
             getServletContext().getRequestDispatcher("/WEB-INF/calculator.jsp").forward(request, response);
         }
 

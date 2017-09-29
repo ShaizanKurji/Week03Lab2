@@ -16,6 +16,6 @@
         </form>
         <br/>
             ${result}
-              ${error}
+              ${errorMsg}
     </body>
 </html>
